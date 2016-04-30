@@ -1,17 +1,27 @@
 package ua.skillsup.practice.hibernate.dao.entity;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.*;
 import java.util.Objects;
 
-/**
- * Created by oleksii on 10/10/15.
- */
+@Entity
+@Table (name = "ITEM")
 public class Item {
 
+	@Id
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@Column(name = "TITLE", nullable = false, unique = true)
 	private String title;
+	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
+	@Column(name = "WIDTH")
 	private Double width;
+	@Column(name = "HEIGHT")
 	private Double height;
+	@Column(name = "WEIGTH")
 	private Double weight;
 
 	public Long getId() {
