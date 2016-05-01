@@ -21,7 +21,7 @@ public class Item {
 	private Double width;
 	@Column(name = "HEIGHT")
 	private Double height;
-	@Column(name = "WEIGTH")
+	@Column(name = "WEIGHT")
 	private Double weight;
 
 	public Long getId() {

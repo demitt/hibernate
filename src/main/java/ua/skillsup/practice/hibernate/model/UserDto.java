@@ -82,13 +82,13 @@ public class UserDto {
 
 	@Override
 	public String toString() {
-		return "UserDto{" +
-				"id=" + id +
+		return "UserDto {\n" +
+				"\tid=" + id +
 				", login='" + login + '\'' +
 				", name='" + name + '\'' +
 				", lastName='" + lastName + '\'' +
 				", deliveryAddress='" + deliveryAddress + '\'' +
 				", contactPhone='" + contactPhone + '\'' +
-				'}';
+				"\n}";
 	}
 }

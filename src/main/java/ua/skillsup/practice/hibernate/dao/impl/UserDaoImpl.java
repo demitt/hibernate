@@ -29,12 +29,27 @@ public class UserDaoImpl implements UserDao {
         return userDto;
     }
 
+    @Transactional(readOnly = true)
     public UserDto findById(long id) {
-        return null;
+        List<User> users = sessionFactory.getCurrentSession().createQuery("FROM User u WHERE u.id = :id").
+            setParameter("id", id).
+            list();
+        if (users.isEmpty()) {
+            return null;
+        }
+        return convert( users.get(0) );
     }
 
+    @Transactional(readOnly = true)
     public UserDto findByLogin(String login) {
-        return null;
+        List<User> users = sessionFactory.getCurrentSession().
+            createQuery("FROM User u WHERE u.login = :login").
+            setParameter("login", login).
+            list();
+        if (users.isEmpty()) {
+            return null;
+        }
+        return convert(users.get(0) );
     }
 
     public long create(UserDto userDto) {

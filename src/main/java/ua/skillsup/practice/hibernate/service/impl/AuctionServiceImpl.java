@@ -30,7 +30,7 @@ public class AuctionServiceImpl implements AuctionService {
 
 
     public List<ItemDto> getAllItems() {
-        return itemDao.findAll();
+        return null;
     }
 
     public UserDto getUser(String login) {

@@ -82,13 +82,13 @@ public class ItemDto {
 
 	@Override
 	public String toString() {
-		return "ItemDto{" +
-				"id=" + id +
+		return "ItemDto {\n" +
+				"\tid=" + id +
 				", title='" + title + '\'' +
 				", description='" + description + '\'' +
 				", width=" + width +
 				", height=" + height +
 				", weight=" + weight +
-				'}';
+				"\n}";
 	}
 }
