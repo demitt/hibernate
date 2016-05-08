@@ -6,9 +6,6 @@ import ua.skillsup.practice.hibernate.model.UserDto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- * Created by oleksii on 10/10/15.
- */
 public class LotFilter {
 
 	private LocalDate dateCreatedFrom;

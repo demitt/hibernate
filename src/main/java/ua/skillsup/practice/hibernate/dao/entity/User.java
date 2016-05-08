@@ -2,6 +2,7 @@ package ua.skillsup.practice.hibernate.dao.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "AUCTION_CLIENT")
@@ -16,10 +17,18 @@ public class User {
     private String name;
     @Column(name = "LAST_NAME")
     private String lastName;
-    @Column(name = "DELIVERY_ADDRESS",nullable = false)
+    @Column(name = "DELIVERY_ADDRESS", nullable = false)
     private String deliveryAddress;
     @Column(name = "CONTACT_PHONE", nullable = false, unique = true)
     private String contactPhone;
+
+
+    @OneToMany(mappedBy = "owner")
+    Set<Lot> lots;
+    @OneToMany(mappedBy = "buyer")
+    Set<Lot> buyLots;
+
+
 
     public Long getId() {
         return id;
@@ -82,7 +91,7 @@ public class User {
         return Objects.hash(id);
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "User{" +
             "id=" + id +
@@ -92,5 +101,5 @@ public class User {
             ", deliveryAddress='" + deliveryAddress + '\'' +
             ", contactPhone='" + contactPhone + '\'' +
             '}';
-    }
+    }*/
 }

@@ -35,25 +35,25 @@ public class ItemDaoImpl implements ItemDao {
 
     @Transactional(readOnly = true)
     public ItemDto findById(long id) {
-        List<Item> items = sessionFactory.getCurrentSession().
+        Item item = (Item) sessionFactory.getCurrentSession().
             createQuery("SELECT i FROM Item i WHERE i.id = :id").setParameter("id", id).
-            list();
-        if (items.isEmpty()) {
+            uniqueResult();
+        if (item == null) {
             return null;
         }
-        return convert( items.get(0) );
+        return convert(item);
     }
 
     @Transactional(readOnly = true)
     public ItemDto findByTitle(String title) {
-        List<Item> items = sessionFactory.getCurrentSession().
+        Item item = (Item) sessionFactory.getCurrentSession().
             createQuery("FROM Item i WHERE i.title = :title").
             setParameter("title", title).
-            list();
-        if (items.isEmpty()) {
+            uniqueResult();
+        if (item == null ) {
             return null;
         }
-        return convert(items.get(0) );
+        return convert(item);
     }
 
     @Transactional(readOnly = true)

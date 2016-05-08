@@ -68,7 +68,7 @@ public class LotHistory {
 		return Objects.hash(id);
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "LotHistory{" +
 				"id=" + id +
@@ -77,5 +77,5 @@ public class LotHistory {
 				", price=" + price +
 				", changeTime=" + changeTime +
 				'}';
-	}
+	}*/
 }

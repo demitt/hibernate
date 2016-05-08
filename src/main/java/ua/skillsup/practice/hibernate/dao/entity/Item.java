@@ -4,6 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table (name = "ITEM")
@@ -23,6 +24,9 @@ public class Item {
 	private Double height;
 	@Column(name = "WEIGHT")
 	private Double weight;
+
+	@OneToMany(mappedBy = "item")
+	private Set<Lot> lots;
 
 	public Long getId() {
 		return id;
@@ -85,7 +89,7 @@ public class Item {
 		return Objects.hash(id);
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "Item{" +
 				"id=" + id +
@@ -95,5 +99,5 @@ public class Item {
 				", height=" + height +
 				", weight=" + weight +
 				'}';
-	}
+	}*/
 }
