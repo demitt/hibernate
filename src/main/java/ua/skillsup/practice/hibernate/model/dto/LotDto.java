@@ -1,33 +1,21 @@
-package ua.skillsup.practice.hibernate.dao.entity;
+package ua.skillsup.practice.hibernate.model.dto;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Entity
-@Table(name = "LOT")
-public class Lot {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
+/**
+ * Created by oleksii on 10/10/15.
+ */
+public class LotDto {
+
 	private Long id;
-	@ManyToOne
-	@JoinColumn(name = "ITEM_ID", nullable = false)
-	private Item item;
-	@ManyToOne
-	@JoinColumn(name ="OWNER_ID", nullable = false)
-	private User owner;
-	@Column(name = "DATE_PLACED")
+	private ItemDto item;
+	private UserDto owner;
 	private LocalDate datePlaced;
-	@Column(name = "START_PRICE")
 	private BigDecimal startPrice;
-	@ManyToOne
-	@JoinColumn(name = "BUYER_ID")
-	private User buyer;
-	@Column(name = "CURRENT_PRICE")
+	private UserDto buyer;
 	private BigDecimal currentPrice;
-	@Column(name = "DATE_END")
 	private LocalDate dateEnd;
 
 	public Long getId() {
@@ -38,19 +26,19 @@ public class Lot {
 		this.id = id;
 	}
 
-	public Item getItem() {
+	public ItemDto getItem() {
 		return item;
 	}
 
-	public void setItem(Item item) {
+	public void setItem(ItemDto item) {
 		this.item = item;
 	}
 
-	public User getOwner() {
+	public UserDto getOwner() {
 		return owner;
 	}
 
-	public void setOwner(User owner) {
+	public void setOwner(UserDto owner) {
 		this.owner = owner;
 	}
 
@@ -70,11 +58,11 @@ public class Lot {
 		this.startPrice = startPrice;
 	}
 
-	public User getBuyer() {
+	public UserDto getBuyer() {
 		return buyer;
 	}
 
-	public void setBuyer(User buyer) {
+	public void setBuyer(UserDto buyer) {
 		this.buyer = buyer;
 	}
 
@@ -98,18 +86,25 @@ public class Lot {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		Lot lot = (Lot) o;
-		return Objects.equals(id, lot.id);
+		LotDto lotDto = (LotDto) o;
+		return Objects.equals(id, lotDto.id) &&
+				Objects.equals(item, lotDto.item) &&
+				Objects.equals(owner, lotDto.owner) &&
+				Objects.equals(datePlaced, lotDto.datePlaced) &&
+				Objects.equals(startPrice, lotDto.startPrice) &&
+				Objects.equals(buyer, lotDto.buyer) &&
+				Objects.equals(currentPrice, lotDto.currentPrice) &&
+				Objects.equals(dateEnd, lotDto.dateEnd);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(id, item, owner, datePlaced, startPrice, buyer, currentPrice, dateEnd);
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
-		return "Lot{" +
+		return "LotDto{" +
 				"id=" + id +
 				", item=" + item +
 				", owner=" + owner +
@@ -119,5 +114,5 @@ public class Lot {
 				", currentPrice=" + currentPrice +
 				", dateEnd=" + dateEnd +
 				'}';
-	}*/
+	}
 }

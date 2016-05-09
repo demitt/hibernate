@@ -1,4 +1,4 @@
-package ua.skillsup.practice.hibernate.dao.impl;
+package ua.skillsup.practice.hibernate.dao.db.impl;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -6,9 +6,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ua.skillsup.practice.hibernate.dao.LotDao;
-import ua.skillsup.practice.hibernate.dao.entity.Lot;
-import ua.skillsup.practice.hibernate.model.LotDto;
+import ua.skillsup.practice.hibernate.dao.db.LotDao;
+import ua.skillsup.practice.hibernate.dao.db.entity.Lot;
+import ua.skillsup.practice.hibernate.model.dto.LotDto;
 import ua.skillsup.practice.hibernate.model.filter.LotFilter;
 
 import java.util.ArrayList;
@@ -17,15 +17,15 @@ import java.util.List;
 import static ua.skillsup.practice.hibernate.converters.EntityDtoConverter.convert;
 
 @Repository
+@Transactional(readOnly = true)
 public class LotDaoImpl implements LotDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	@Transactional(readOnly = true)
 	public List<LotDto> findAll() {
 		List<Lot> lots = this.sessionFactory.getCurrentSession().
-			createQuery("FROM Lot").
+			createQuery("FROM Lot order by dateEnd asc").
 			list();
 		List<LotDto> lotsDto = new ArrayList<>(lots.size());
 		for (Lot lot : lots) {
@@ -34,10 +34,9 @@ public class LotDaoImpl implements LotDao {
 		return lotsDto;
 	}
 
-	@Transactional(readOnly = true)
 	public LotDto findById(long id) {
 		Lot lot = (Lot) this.sessionFactory.getCurrentSession().
-			createQuery("FROM Lot WHERE id = :id").
+			createQuery("from Lot where id = :id").
 			setParameter("id", id).
 			uniqueResult();
 		if (lot == null) {
@@ -46,7 +45,6 @@ public class LotDaoImpl implements LotDao {
 		return convert(lot);
 	}
 
-	@Transactional(readOnly = true)
 	public List<LotDto> findByFilter(LotFilter filter) {
 		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(Lot.class);
 		if (filter.getDateCreatedFrom() != null) {
@@ -84,8 +82,11 @@ public class LotDaoImpl implements LotDao {
 		return lotsDto;
 	}
 
+	@Transactional(readOnly = false)
 	public long create(LotDto lotDto) {
-		return 0;
+		Lot lot = convert(lotDto);
+		this.sessionFactory.getCurrentSession().save(lot);
+		return lot.getId();
 	}
 
 	public void update(LotDto lotDto) {

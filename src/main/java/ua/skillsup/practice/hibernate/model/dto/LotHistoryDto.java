@@ -1,19 +1,25 @@
-package ua.skillsup.practice.hibernate.dao.entity;
+package ua.skillsup.practice.hibernate.model.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-/**
- * Created by oleksii on 10/10/15.
- */
-public class LotHistory {
+public class LotHistoryDto {
 
 	private Long id;
-	private Lot lot;
-	private User buyer;
+	private LotDto lot;
+	private UserDto buyer;
 	private BigDecimal price;
 	private LocalDateTime changeTime;
+
+	public LotHistoryDto() {   }
+
+	public LotHistoryDto(LotDto lot, UserDto buyer, BigDecimal price, LocalDateTime changeTime) {
+		this.lot = lot;
+		this.buyer = buyer;
+		this.price = price;
+		this.changeTime = changeTime;
+	}
 
 	public Long getId() {
 		return id;
@@ -23,19 +29,19 @@ public class LotHistory {
 		this.id = id;
 	}
 
-	public Lot getLot() {
+	public LotDto getLot() {
 		return lot;
 	}
 
-	public void setLot(Lot lot) {
+	public void setLot(LotDto lot) {
 		this.lot = lot;
 	}
 
-	public User getBuyer() {
+	public UserDto getBuyer() {
 		return buyer;
 	}
 
-	public void setBuyer(User buyer) {
+	public void setBuyer(UserDto buyer) {
 		this.buyer = buyer;
 	}
 
@@ -59,23 +65,27 @@ public class LotHistory {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		LotHistory that = (LotHistory) o;
-		return Objects.equals(id, that.id);
+		LotHistoryDto that = (LotHistoryDto) o;
+		return Objects.equals(id, that.id) &&
+				Objects.equals(lot, that.lot) &&
+				Objects.equals(buyer, that.buyer) &&
+				Objects.equals(price, that.price) &&
+				Objects.equals(changeTime, that.changeTime);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(id, lot, buyer, price, changeTime);
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
-		return "LotHistory{" +
+		return "LotHistoryDto{" +
 				"id=" + id +
 				", lot=" + lot +
 				", buyer=" + buyer +
 				", price=" + price +
 				", changeTime=" + changeTime +
 				'}';
-	}*/
+	}
 }

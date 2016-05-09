@@ -1,7 +1,7 @@
 package ua.skillsup.practice.hibernate.model.filter;
 
-import ua.skillsup.practice.hibernate.model.ItemDto;
-import ua.skillsup.practice.hibernate.model.UserDto;
+import ua.skillsup.practice.hibernate.model.dto.ItemDto;
+import ua.skillsup.practice.hibernate.model.dto.UserDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

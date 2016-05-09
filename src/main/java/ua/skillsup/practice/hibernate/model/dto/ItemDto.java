@@ -1,18 +1,16 @@
-package ua.skillsup.practice.hibernate.model;
+package ua.skillsup.practice.hibernate.model.dto;
 
+import java.util.List;
 import java.util.Objects;
 
-/**
- * Created by oleksii on 10/10/15.
- */
 public class ItemDto {
-
 	private Long id;
 	private String title;
 	private String description;
 	private Double width;
 	private Double height;
 	private Double weight;
+	private List<CategoryDto> categories;
 
 	public Long getId() {
 		return id;
@@ -62,6 +60,14 @@ public class ItemDto {
 		this.weight = weight;
 	}
 
+	public List<CategoryDto> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<CategoryDto> categories) {
+		this.categories = categories;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -82,13 +88,14 @@ public class ItemDto {
 
 	@Override
 	public String toString() {
-		return "ItemDto {\n" +
-				"\tid=" + id +
-				", title='" + title + '\'' +
-				", description='" + description + '\'' +
-				", width=" + width +
-				", height=" + height +
-				", weight=" + weight +
-				"\n}";
+		return "ItemDto{" +
+			"id=" + id +
+			", title='" + title + '\'' +
+			", description='" + description + '\'' +
+			", width=" + width +
+			", height=" + height +
+			", weight=" + weight +
+			", categories=" + categories +
+			'}';
 	}
 }

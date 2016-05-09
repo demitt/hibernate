@@ -1,15 +1,24 @@
-package ua.skillsup.practice.hibernate.dao.entity;
+package ua.skillsup.practice.hibernate.dao.db.entity;
 
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
-/**
- * Created by oleksii on 10/18/15.
- */
+@Entity
+@Table(name = "CATEGORY")
 public class Category {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	private Long id;
+	@Column(name = "TITLE", unique = true, nullable = false)
 	private String title;
+	@Column(name = "DESCRIPTION")
 	private String description;
+
+	//Используется только для поиска всех items данной категории:
+	@ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
+	private List<Item> items;
 
 	public long getId() {
 		return id;

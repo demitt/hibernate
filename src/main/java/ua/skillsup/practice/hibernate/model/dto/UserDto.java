@@ -1,4 +1,4 @@
-package ua.skillsup.practice.hibernate.model;
+package ua.skillsup.practice.hibernate.model.dto;
 
 import java.util.Objects;
 

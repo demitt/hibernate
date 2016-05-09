@@ -1,17 +1,19 @@
 package ua.skillsup.practice.hibernate.converters;
 
-import ua.skillsup.practice.hibernate.dao.entity.Item;
-import ua.skillsup.practice.hibernate.dao.entity.Lot;
-import ua.skillsup.practice.hibernate.dao.entity.LotHistory;
-import ua.skillsup.practice.hibernate.dao.entity.User;
-import ua.skillsup.practice.hibernate.model.ItemDto;
-import ua.skillsup.practice.hibernate.model.LotDto;
-import ua.skillsup.practice.hibernate.model.LotHistoryDto;
-import ua.skillsup.practice.hibernate.model.UserDto;
+import ua.skillsup.practice.hibernate.dao.db.entity.Category;
+import ua.skillsup.practice.hibernate.dao.db.entity.Item;
+import ua.skillsup.practice.hibernate.dao.db.entity.Lot;
+import ua.skillsup.practice.hibernate.dao.db.entity.LotHistory;
+import ua.skillsup.practice.hibernate.dao.db.entity.User;
+import ua.skillsup.practice.hibernate.model.dto.CategoryDto;
+import ua.skillsup.practice.hibernate.model.dto.ItemDto;
+import ua.skillsup.practice.hibernate.model.dto.LotDto;
+import ua.skillsup.practice.hibernate.model.dto.LotHistoryDto;
+import ua.skillsup.practice.hibernate.model.dto.UserDto;
 
-/**
- * Created by oleksii on 10/10/15.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public final class EntityDtoConverter {
 
 	private EntityDtoConverter() {
@@ -29,6 +31,12 @@ public final class EntityDtoConverter {
 		item.setHeight(itemDto.getHeight());
 		item.setWeight(itemDto.getWeight());
 		item.setWidth(itemDto.getWidth());
+		List<CategoryDto> catsDto = itemDto.getCategories();
+		List<Category> cats = new ArrayList<>(catsDto.size());
+		for (CategoryDto catDto : catsDto) {
+			cats.add(convert(catDto));
+		}
+		item.setCategories(cats);
 		return item;
 	}
 
@@ -43,6 +51,12 @@ public final class EntityDtoConverter {
 		itemDto.setHeight(item.getHeight());
 		itemDto.setWeight(item.getWeight());
 		itemDto.setWidth(item.getWidth());
+		List<Category> cats = item.getCategories();
+		List<CategoryDto> catsDto = new ArrayList<>(cats.size());
+		for (Category cat : cats) {
+			catsDto.add(convert(cat));
+		}
+		itemDto.setCategories(catsDto);
 		return itemDto;
 	}
 
@@ -104,6 +118,28 @@ public final class EntityDtoConverter {
 		lotDto.setCurrentPrice(lot.getCurrentPrice());
 		lotDto.setDateEnd(lot.getDateEnd());
 		return lotDto;
+	}
+
+	public static Category convert(CategoryDto categoryDto) {
+		if (categoryDto == null) {
+			return null;
+		}
+		Category category = new Category();
+		category.setId(categoryDto.getId());
+		category.setTitle(categoryDto.getTitle());
+		category.setDescription(categoryDto.getDescription());
+		return category;
+	}
+
+	public static CategoryDto convert(Category category) {
+		if (category == null) {
+			return null;
+		}
+		CategoryDto categoryDto = new CategoryDto();
+		categoryDto.setId(category.getId());
+		categoryDto.setTitle(category.getTitle());
+		categoryDto.setDescription(category.getDescription());
+		return categoryDto;
 	}
 
 	public static LotHistory convert(LotHistoryDto lotHistoryDto) {

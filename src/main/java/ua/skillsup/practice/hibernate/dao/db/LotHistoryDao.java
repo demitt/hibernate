@@ -1,6 +1,6 @@
-package ua.skillsup.practice.hibernate.dao;
+package ua.skillsup.practice.hibernate.dao.db;
 
-import ua.skillsup.practice.hibernate.model.LotHistoryDto;
+import ua.skillsup.practice.hibernate.model.dto.LotHistoryDto;
 import ua.skillsup.practice.hibernate.model.filter.LotHistoryFilter;
 
 import java.util.List;
@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * Created by oleksii on 10/10/15.
  */
+
 public interface LotHistoryDao {
 
 	List<LotHistoryDto> findAll();

@@ -1,15 +1,11 @@
-package ua.skillsup.practice.hibernate.dao;
+package ua.skillsup.practice.hibernate.dao.db;
 
-import ua.skillsup.practice.hibernate.model.LotDto;
+import ua.skillsup.practice.hibernate.model.dto.LotDto;
 import ua.skillsup.practice.hibernate.model.filter.LotFilter;
 
 import java.util.List;
 
-/**
- * Created by oleksii on 10/10/15.
- */
 public interface LotDao {
-
 	List<LotDto> findAll();
 	LotDto findById(long id);
 	List<LotDto> findByFilter(LotFilter filter);

@@ -1,18 +1,26 @@
-package ua.skillsup.practice.hibernate.model;
+package ua.skillsup.practice.hibernate.dao.db.entity;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-/**
- * Created by oleksii on 10/10/15.
- */
-public class LotHistoryDto {
-
+@Entity
+@Table(name = "LOT_HISTORY")
+public class LotHistory {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	private Long id;
-	private LotDto lot;
-	private UserDto buyer;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "LOT_ID")
+	private Lot lot;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "BUYER_ID")
+	private User buyer;
+	@Column(name = "PRICE", nullable = false)
 	private BigDecimal price;
+	@Column(name = "CHANGE_DATE", nullable = false)
 	private LocalDateTime changeTime;
 
 	public Long getId() {
@@ -23,19 +31,19 @@ public class LotHistoryDto {
 		this.id = id;
 	}
 
-	public LotDto getLot() {
+	public Lot getLot() {
 		return lot;
 	}
 
-	public void setLot(LotDto lot) {
+	public void setLot(Lot lot) {
 		this.lot = lot;
 	}
 
-	public UserDto getBuyer() {
+	public User getBuyer() {
 		return buyer;
 	}
 
-	public void setBuyer(UserDto buyer) {
+	public void setBuyer(User buyer) {
 		this.buyer = buyer;
 	}
 
@@ -59,27 +67,23 @@ public class LotHistoryDto {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		LotHistoryDto that = (LotHistoryDto) o;
-		return Objects.equals(id, that.id) &&
-				Objects.equals(lot, that.lot) &&
-				Objects.equals(buyer, that.buyer) &&
-				Objects.equals(price, that.price) &&
-				Objects.equals(changeTime, that.changeTime);
+		LotHistory that = (LotHistory) o;
+		return Objects.equals(id, that.id);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, lot, buyer, price, changeTime);
+		return Objects.hash(id);
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
-		return "LotHistoryDto{" +
+		return "LotHistory{" +
 				"id=" + id +
 				", lot=" + lot +
 				", buyer=" + buyer +
 				", price=" + price +
 				", changeTime=" + changeTime +
 				'}';
-	}
+	}*/
 }

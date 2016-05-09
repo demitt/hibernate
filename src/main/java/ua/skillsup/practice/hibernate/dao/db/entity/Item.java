@@ -1,18 +1,17 @@
-package ua.skillsup.practice.hibernate.dao.entity;
+package ua.skillsup.practice.hibernate.dao.db.entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table (name = "ITEM")
 public class Item {
-
 	@Id
-	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	private Long id;
 	@Column(name = "TITLE", nullable = false, unique = true)
 	private String title;
@@ -25,8 +24,17 @@ public class Item {
 	@Column(name = "WEIGHT")
 	private Double weight;
 
-	@OneToMany(mappedBy = "item")
-	private Set<Lot> lots;
+	@ManyToMany
+	@JoinTable(
+		name = "ITEM_CATEGORY",
+		joinColumns = @JoinColumn(name = "ITEM_ID"),
+		inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID")
+	)
+	private List<Category> categories;
+
+	//Не требуется:
+	//@OneToMany(mappedBy = "item")
+	//private List<Lot> lots;
 
 	public Long getId() {
 		return id;
@@ -76,6 +84,14 @@ public class Item {
 		this.weight = weight;
 	}
 
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -89,15 +105,4 @@ public class Item {
 		return Objects.hash(id);
 	}
 
-	/*@Override
-	public String toString() {
-		return "Item{" +
-				"id=" + id +
-				", title='" + title + '\'' +
-				", description='" + description + '\'' +
-				", width=" + width +
-				", height=" + height +
-				", weight=" + weight +
-				'}';
-	}*/
 }

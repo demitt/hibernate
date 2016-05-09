@@ -1,6 +1,8 @@
 INSERT INTO CATEGORY (TITLE, DESCRIPTION) VALUES ('Digital', 'Digital records (aka video, audio, books etc)');
 INSERT INTO CATEGORY (TITLE, DESCRIPTION) VALUES ('Movie', 'Some video content made by Hollywood people or ther guys with camera');
 INSERT INTO CATEGORY (TITLE, DESCRIPTION) VALUES ('Table', 'One of the most usefull type of the furniture');
+INSERT INTO CATEGORY (TITLE, DESCRIPTION) VALUES ('Аксессуары', 'Гарнитуры, зарядные устройства, наушники...');
+
 
 INSERT INTO ITEM (TITLE, DESCRIPTION, WEIGHT) VALUES ('Sennheiser OCX 686i Sports', 'Good sport headphones with garniture for that who know the price of good sound', 0.125);
 INSERT INTO ITEM (TITLE, DESCRIPTION, WEIGHT, WIDtH, HEIGHT) VALUES ('Dinning table', 'Simple but comfortable dinner table for 6=8 persons family', 5.6, 1.46, 0.75);
@@ -13,3 +15,4 @@ INSERT INTO LOT (ITEM_ID, OWNER_ID, START_PRICE, CURRENT_PRICE) VALUES (1, 1, 9.
 
 INSERT INTO ITEM_CATEGORY (ITEM_ID, CATEGORY_ID) VALUES (3, 1);
 INSERT INTO ITEM_CATEGORY (ITEM_ID, CATEGORY_ID) VALUES (3, 2);
+INSERT INTO ITEM_CATEGORY (ITEM_ID, CATEGORY_ID) VALUES (1, 4);

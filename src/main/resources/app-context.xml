@@ -25,7 +25,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
             <array>
-                <value>ua.skillsup.practice.hibernate.dao.entity</value>
+                <value>ua.skillsup.practice.hibernate.dao.db.entity</value>
                 <value>ua.skillsup.practice.hibernate.converters</value>
             </array>
         </property>
@@ -35,9 +35,16 @@
                 <prop key="hibernate.max_fetch_depth">3</prop>
                 <prop key="hibernate.jdbc.fetch_size">50</prop>
                 <prop key="hibernate.jdbc.batch_size">10</prop>
-                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">true</prop>
             </props>
         </property>        
     </bean>
+
+    <context:property-placeholder location="data.properties" file-encoding="windows-1251" />
+    <bean id="data" class="ua.skillsup.practice.hibernate.model.Data">
+        <property name="MIN_BID_STEP" value="${min.bid.step}" />
+    </bean>
+
 
 </beans>

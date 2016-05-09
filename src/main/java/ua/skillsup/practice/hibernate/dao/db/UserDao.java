@@ -1,6 +1,6 @@
-package ua.skillsup.practice.hibernate.dao;
+package ua.skillsup.practice.hibernate.dao.db;
 
-import ua.skillsup.practice.hibernate.model.UserDto;
+import ua.skillsup.practice.hibernate.model.dto.UserDto;
 
 import java.util.List;
 
