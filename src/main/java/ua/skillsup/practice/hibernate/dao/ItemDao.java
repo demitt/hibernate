@@ -1,4 +1,4 @@
-package ua.skillsup.practice.hibernate.dao.db;
+package ua.skillsup.practice.hibernate.dao;
 
 import ua.skillsup.practice.hibernate.model.dto.CategoryDto;
 import ua.skillsup.practice.hibernate.model.dto.ItemDto;

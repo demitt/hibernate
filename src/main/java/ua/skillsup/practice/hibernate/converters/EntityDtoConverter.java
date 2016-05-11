@@ -1,10 +1,10 @@
 package ua.skillsup.practice.hibernate.converters;
 
-import ua.skillsup.practice.hibernate.dao.db.entity.Category;
-import ua.skillsup.practice.hibernate.dao.db.entity.Item;
-import ua.skillsup.practice.hibernate.dao.db.entity.Lot;
-import ua.skillsup.practice.hibernate.dao.db.entity.LotHistory;
-import ua.skillsup.practice.hibernate.dao.db.entity.User;
+import ua.skillsup.practice.hibernate.dao.entity.Category;
+import ua.skillsup.practice.hibernate.dao.entity.Item;
+import ua.skillsup.practice.hibernate.dao.entity.Lot;
+import ua.skillsup.practice.hibernate.dao.entity.LotHistory;
+import ua.skillsup.practice.hibernate.dao.entity.User;
 import ua.skillsup.practice.hibernate.model.dto.CategoryDto;
 import ua.skillsup.practice.hibernate.model.dto.ItemDto;
 import ua.skillsup.practice.hibernate.model.dto.LotDto;

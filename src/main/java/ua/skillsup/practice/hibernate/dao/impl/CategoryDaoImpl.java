@@ -1,12 +1,12 @@
-package ua.skillsup.practice.hibernate.dao.db.impl;
+package ua.skillsup.practice.hibernate.dao.impl;
 
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ua.skillsup.practice.hibernate.dao.db.CategoryDao;
-import ua.skillsup.practice.hibernate.dao.db.entity.Category;
+import ua.skillsup.practice.hibernate.dao.CategoryDao;
+import ua.skillsup.practice.hibernate.dao.entity.Category;
 import ua.skillsup.practice.hibernate.model.dto.CategoryDto;
 
 import java.util.ArrayList;

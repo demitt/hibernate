@@ -1,10 +1,5 @@
 package ua.skillsup.practice.hibernate.model.dto;
 
-import java.util.Objects;
-
-/**
- * Created by oleksii on 10/10/15.
- */
 public class UserDto {
 
 	private Long id;
@@ -66,18 +61,25 @@ public class UserDto {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
+
 		UserDto userDto = (UserDto) o;
-		return Objects.equals(id, userDto.id) &&
-				Objects.equals(login, userDto.login) &&
-				Objects.equals(name, userDto.name) &&
-				Objects.equals(lastName, userDto.lastName) &&
-				Objects.equals(deliveryAddress, userDto.deliveryAddress) &&
-				Objects.equals(contactPhone, userDto.contactPhone);
+
+		if (!login.equals(userDto.login)) return false;
+		if (!name.equals(userDto.name)) return false;
+		if (lastName != null ? !lastName.equals(userDto.lastName) : userDto.lastName != null) return false;
+		if (!deliveryAddress.equals(userDto.deliveryAddress)) return false;
+		return contactPhone.equals(userDto.contactPhone);
+
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, login, name, lastName, deliveryAddress, contactPhone);
+		int result = login.hashCode();
+		result = 31 * result + name.hashCode();
+		result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+		result = 31 * result + deliveryAddress.hashCode();
+		result = 31 * result + contactPhone.hashCode();
+		return result;
 	}
 
 	@Override

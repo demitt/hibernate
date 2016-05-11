@@ -1,18 +1,24 @@
 package ua.skillsup.practice.hibernate;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ua.skillsup.practice.hibernate.dao.db.CategoryDao;
-import ua.skillsup.practice.hibernate.dao.db.ItemDao;
-import ua.skillsup.practice.hibernate.dao.db.LotDao;
-import ua.skillsup.practice.hibernate.dao.db.UserDao;
+import ua.skillsup.practice.hibernate.dao.CategoryDao;
+import ua.skillsup.practice.hibernate.dao.ItemDao;
+import ua.skillsup.practice.hibernate.dao.LotDao;
+import ua.skillsup.practice.hibernate.dao.LotHistoryDao;
+import ua.skillsup.practice.hibernate.dao.UserDao;
+import ua.skillsup.practice.hibernate.dao.entity.LotHistory;
 import ua.skillsup.practice.hibernate.model.dto.CategoryDto;
+import ua.skillsup.practice.hibernate.model.dto.LotDto;
+import ua.skillsup.practice.hibernate.model.dto.LotHistoryDto;
 import ua.skillsup.practice.hibernate.model.dto.UserDto;
 import ua.skillsup.practice.hibernate.model.filter.LotFilter;
+import ua.skillsup.practice.hibernate.model.filter.LotHistoryFilter;
 import ua.skillsup.practice.hibernate.service.AuctionService;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class App {
 
@@ -75,11 +81,7 @@ public class App {
         //System.out.println("Список всех лотов:");
         //System.out.println(lotDao.findAll());
 
-        //long lotId = 1;
-        //System.out.println("Поиск лота с id=" + lotId + ":");
-        //System.out.println( lotDao.findById(lotId) );
-
-        System.out.println("Поиск всех лотов юзера:");
+        System.out.println("Поиск всех лотов пользователя:");
         UserDto user = userDao.findById(1);
         //System.out.println("Юзер:");
         //System.out.println(user);
@@ -96,9 +98,9 @@ public class App {
         System.out.println(categoryDao.findAll());
         System.out.println();
 
-        long catId = 4;
-        System.out.println("Поиск категории с id=" + catId + ":");
-        CategoryDto cat = categoryDao.findById(catId);
+        long categoryId = 4;
+        System.out.println("Поиск категории с id=" + categoryId + ":");
+        CategoryDto cat = categoryDao.findById(categoryId);
         System.out.println(cat);
         System.out.println();
 
@@ -107,28 +109,41 @@ public class App {
         System.out.println();
 
 
+        LotHistoryDao historyDao = context.getBean(LotHistoryDao.class);
 
-        System.out.println("\n\n********************************************************************");
 
-        AuctionService service = context.getBean(AuctionService.class);
+        System.out.println("\n**********************************************\n");
 
+
+        AuctionService auctionService = context.getBean(AuctionService.class);
+
+
+        long lotId = 1;
+        LotDto lot = lotDao.findById(lotId);
+        System.out.println("*** Делаем ставки на лот ***");
+        System.out.println(lot);
+        List<String> logins = Arrays.asList("Loki", "Лютый_Бандеровец", "Odin", "Loki");
+        List<String> prices = Arrays.asList("10.08", "10.50", "12.01", "15");
         String login;
+        String priceString;
+        for (int i = 0; i < logins.size(); i++) {
+            login = logins.get(i);
+            priceString = prices.get(i);
+            System.out.println(login + " делает ставку $" + priceString);
+            auctionService.makeBid(login, lotId, new BigDecimal(priceString));
+        }
 
-        login = "Odin";
-        System.out.println(login + " делает ставку.");
-        service.makeBid(login, 1, new BigDecimal(10.09));
+        System.out.println("Итого текущая цена лота составляет $" + lotDao.findById(lotId).getCurrentPrice());
+        System.out.println("А история ставок выглядит следующим образом:");
+        LotHistoryFilter lotHistoryFilter = new LotHistoryFilter();
+        lotHistoryFilter.setLot(lot);
+        List<LotHistoryDto> lotHistoryList = historyDao.findByFilter(lotHistoryFilter);
+        for (LotHistoryDto historyDto : lotHistoryList) {
+            System.out.println( " - $" + historyDto.getPrice() + ", " + historyDto.getBuyer().getLogin() + ", " + historyDto.getChangeTime() );
+        }
 
-        login = "Loki";
-        System.out.println(login + " делает ставку.");
-        service.makeBid(login, 1, new BigDecimal(10.50));
 
-        login = "Odin";
-        System.out.println(login + " делает ставку.");
-        service.makeBid(login, 1, new BigDecimal(12.01));
 
-        login = "Loki";
-        System.out.println(login + " делает ставку.");
-        service.makeBid(login, 1, new BigDecimal(15.00));
 
 
         context.stop();

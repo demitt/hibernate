@@ -1,13 +1,14 @@
-package ua.skillsup.practice.hibernate.dao.db.impl;
+package ua.skillsup.practice.hibernate.dao.impl;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ua.skillsup.practice.hibernate.dao.db.LotHistoryDao;
-import ua.skillsup.practice.hibernate.dao.db.entity.LotHistory;
+import ua.skillsup.practice.hibernate.dao.LotHistoryDao;
+import ua.skillsup.practice.hibernate.dao.entity.LotHistory;
 import ua.skillsup.practice.hibernate.model.dto.LotHistoryDto;
 import ua.skillsup.practice.hibernate.model.filter.LotHistoryFilter;
 
@@ -35,6 +36,8 @@ public class LotHistoryDaoImpl implements LotHistoryDao {
 
 	public List<LotHistoryDto> findByFilter(LotHistoryFilter lotHistoryFilter) {
 		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(LotHistory.class);
+		criteria.addOrder(Order.asc("changeTime"));
+
 		if (lotHistoryFilter.getLot() != null) {
 			criteria.add(Restrictions.eq("lot", convert(lotHistoryFilter.getLot())));
 		}
@@ -53,7 +56,7 @@ public class LotHistoryDaoImpl implements LotHistoryDao {
 		if (lotHistoryFilter.getLotPriceTo() != null) {
 			criteria.add(Restrictions.le("price", lotHistoryFilter.getLotPriceTo()));
 		}
-		//criteria.addOrder(Order.asc("changeTime"));
+
 		List<LotHistory> lotHistories = criteria.list();
 		List<LotHistoryDto> lotHistoriesDto = new ArrayList<>(lotHistories.size());
 		for (LotHistory lotHistory : lotHistories) {
@@ -62,6 +65,7 @@ public class LotHistoryDaoImpl implements LotHistoryDao {
 		return lotHistoriesDto;
 	}
 
+	//Здесь должна быть та логика, которую мы засунули в AuctionDaoImpl#makeBid(), блок "Insert into LotHistory" ? О_о
 	public long create(LotHistoryDto lotHistoryDto) {
 		return 0;
 	}

@@ -1,4 +1,4 @@
-package ua.skillsup.practice.hibernate.dao.db.impl;
+package ua.skillsup.practice.hibernate.dao.impl;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -6,9 +6,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ua.skillsup.practice.hibernate.dao.db.ItemDao;
-import ua.skillsup.practice.hibernate.dao.db.entity.Category;
-import ua.skillsup.practice.hibernate.dao.db.entity.Item;
+import ua.skillsup.practice.hibernate.dao.ItemDao;
+import ua.skillsup.practice.hibernate.dao.entity.Category;
+import ua.skillsup.practice.hibernate.dao.entity.Item;
 import ua.skillsup.practice.hibernate.model.dto.CategoryDto;
 import ua.skillsup.practice.hibernate.model.dto.ItemDto;
 import ua.skillsup.practice.hibernate.model.filter.ItemFilter;

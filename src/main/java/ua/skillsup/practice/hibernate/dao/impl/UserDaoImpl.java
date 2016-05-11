@@ -1,11 +1,11 @@
-package ua.skillsup.practice.hibernate.dao.db.impl;
+package ua.skillsup.practice.hibernate.dao.impl;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ua.skillsup.practice.hibernate.dao.db.UserDao;
-import ua.skillsup.practice.hibernate.dao.db.entity.User;
+import ua.skillsup.practice.hibernate.dao.UserDao;
+import ua.skillsup.practice.hibernate.dao.entity.User;
 import ua.skillsup.practice.hibernate.model.dto.UserDto;
 
 import static ua.skillsup.practice.hibernate.converters.EntityDtoConverter.convert;

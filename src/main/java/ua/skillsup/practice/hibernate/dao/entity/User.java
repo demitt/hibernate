@@ -1,4 +1,4 @@
-package ua.skillsup.practice.hibernate.dao.db.entity;
+package ua.skillsup.practice.hibernate.dao.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
