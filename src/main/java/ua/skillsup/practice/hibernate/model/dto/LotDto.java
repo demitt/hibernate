@@ -2,6 +2,7 @@ package ua.skillsup.practice.hibernate.model.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -13,6 +14,7 @@ public class LotDto {
 	private ItemDto item;
 	private UserDto owner;
 	private LocalDate datePlaced;
+	private LocalDateTime lastUpdate;
 	private BigDecimal startPrice;
 	private UserDto buyer;
 	private BigDecimal currentPrice;
@@ -82,37 +84,49 @@ public class LotDto {
 		this.dateEnd = dateEnd;
 	}
 
+	public LocalDateTime getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(LocalDateTime lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
+
 		LotDto lotDto = (LotDto) o;
-		return Objects.equals(id, lotDto.id) &&
-				Objects.equals(item, lotDto.item) &&
-				Objects.equals(owner, lotDto.owner) &&
-				Objects.equals(datePlaced, lotDto.datePlaced) &&
-				Objects.equals(startPrice, lotDto.startPrice) &&
-				Objects.equals(buyer, lotDto.buyer) &&
-				Objects.equals(currentPrice, lotDto.currentPrice) &&
-				Objects.equals(dateEnd, lotDto.dateEnd);
+
+		if (!item.equals(lotDto.item)) return false;
+		if (!owner.equals(lotDto.owner)) return false;
+		if (!datePlaced.equals(lotDto.datePlaced)) return false;
+		return startPrice.equals(lotDto.startPrice);
+
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, item, owner, datePlaced, startPrice, buyer, currentPrice, dateEnd);
+		int result = item.hashCode();
+		result = 31 * result + owner.hashCode();
+		result = 31 * result + datePlaced.hashCode();
+		result = 31 * result + startPrice.hashCode();
+		return result;
 	}
 
 	@Override
 	public String toString() {
 		return "LotDto{" +
-				"id=" + id +
-				", item=" + item +
-				", owner=" + owner +
-				", datePlaced=" + datePlaced +
-				", startPrice=" + startPrice +
-				", buyer=" + buyer +
-				", currentPrice=" + currentPrice +
-				", dateEnd=" + dateEnd +
-				'}';
+			"id=" + id +
+			", item=" + item +
+			", owner=" + owner +
+			", datePlaced=" + datePlaced +
+			", lastUpdate=" + lastUpdate +
+			", startPrice=" + startPrice +
+			", buyer=" + buyer +
+			", currentPrice=" + currentPrice +
+			", dateEnd=" + dateEnd +
+			'}';
 	}
 }

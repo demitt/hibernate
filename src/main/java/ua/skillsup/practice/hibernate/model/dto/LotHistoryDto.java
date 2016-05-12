@@ -14,11 +14,11 @@ public class LotHistoryDto {
 
 	public LotHistoryDto() {   }
 
-	public LotHistoryDto(LotDto lot, UserDto buyer, BigDecimal price, LocalDateTime changeTime) {
+	public LotHistoryDto(LotDto lot) {
 		this.lot = lot;
-		this.buyer = buyer;
-		this.price = price;
-		this.changeTime = changeTime;
+		this.buyer = lot.getBuyer();
+		this.price = lot.getCurrentPrice();
+		this.changeTime = lot.getLastUpdate();
 	}
 
 	public Long getId() {

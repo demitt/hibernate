@@ -1,6 +1,8 @@
 package ua.skillsup.practice.hibernate.dao.impl;
 
 import org.hibernate.Criteria;
+import org.hibernate.ReplicationMode;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -12,6 +14,7 @@ import ua.skillsup.practice.hibernate.dao.entity.Lot;
 import ua.skillsup.practice.hibernate.model.dto.LotDto;
 import ua.skillsup.practice.hibernate.model.filter.LotFilter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +103,10 @@ public class LotDaoImpl implements LotDao {
 		return lot.getId();
 	}
 
+	@Transactional(readOnly = false)
 	public void update(LotDto lotDto) {
-
+		Lot lot = convert(lotDto);
+		this.sessionFactory.getCurrentSession().replicate(lot, ReplicationMode.OVERWRITE);
+		//this.sessionFactory.getCurrentSession().save(lot);  // надо?
 	}
 }

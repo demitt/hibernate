@@ -98,6 +98,7 @@ public final class EntityDtoConverter {
 		lot.setOwner(convert(lotDto.getOwner()));
 		lot.setStartPrice(lotDto.getStartPrice());
 		lot.setDatePlaced(lotDto.getDatePlaced());
+		lot.setLastUpdate(lotDto.getLastUpdate());
 		lot.setBuyer(convert(lotDto.getBuyer()));
 		lot.setCurrentPrice(lotDto.getCurrentPrice());
 		lot.setDateEnd(lotDto.getDateEnd());
@@ -114,6 +115,7 @@ public final class EntityDtoConverter {
 		lotDto.setOwner(convert(lot.getOwner()));
 		lotDto.setStartPrice(lot.getStartPrice());
 		lotDto.setDatePlaced(lot.getDatePlaced());
+		lotDto.setLastUpdate(lot.getLastUpdate());
 		lotDto.setBuyer(convert(lot.getBuyer()));
 		lotDto.setCurrentPrice(lot.getCurrentPrice());
 		lotDto.setDateEnd(lot.getDateEnd());

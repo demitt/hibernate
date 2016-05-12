@@ -3,6 +3,7 @@ package ua.skillsup.practice.hibernate.dao.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +21,8 @@ public class Lot {
 	private User owner;
 	@Column(name = "DATE_PLACED")
 	private LocalDate datePlaced;
+	@Column(name = "LAST_UPDATE")
+	private LocalDateTime lastUpdate;
 	@Column(name = "START_PRICE")
 	private BigDecimal startPrice;
 	@ManyToOne
@@ -94,6 +97,14 @@ public class Lot {
 		this.dateEnd = dateEnd;
 	}
 
+	public LocalDateTime getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(LocalDateTime lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -107,17 +118,4 @@ public class Lot {
 		return Objects.hash(id);
 	}
 
-	/*@Override
-	public String toString() {
-		return "Lot{" +
-				"id=" + id +
-				", item=" + item +
-				", owner=" + owner +
-				", datePlaced=" + datePlaced +
-				", startPrice=" + startPrice +
-				", buyer=" + buyer +
-				", currentPrice=" + currentPrice +
-				", dateEnd=" + dateEnd +
-				'}';
-	}*/
 }

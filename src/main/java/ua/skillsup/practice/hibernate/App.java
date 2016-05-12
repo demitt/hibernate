@@ -119,11 +119,14 @@ public class App {
 
 
         long lotId = 1;
-        LotDto lot = lotDao.findById(lotId);
-        System.out.println("*** Делаем ставки на лот ***");
-        System.out.println(lot);
-        List<String> logins = Arrays.asList("Loki", "Лютый_Бандеровец", "Odin", "Loki");
-        List<String> prices = Arrays.asList("10.08", "10.50", "12.01", "15");
+        LotDto lotDto = lotDao.findById(lotId);
+        System.out.println("*** " +
+            "Делаем ставки на лот: " +
+            "lotId=" + lotDto.getId() + ", '" + lotDto.getItem().getTitle() + "', $" + lotDto.getCurrentPrice() +
+            ", владелец " + lotDto.getOwner().getLogin()
+        );
+        List<String> logins = Arrays.asList("Loki", "Loki", "Loki", "Odin", "Лютый_Бандеровец", "Loki");
+        List<String> prices = Arrays.asList("10.08", "10.09", "11.25", "11.70", "12.01", "15");
         String login;
         String priceString;
         for (int i = 0; i < logins.size(); i++) {
@@ -135,13 +138,14 @@ public class App {
 
         System.out.println("Итого текущая цена лота составляет $" + lotDao.findById(lotId).getCurrentPrice());
         System.out.println("А история ставок выглядит следующим образом:");
-        LotHistoryFilter lotHistoryFilter = new LotHistoryFilter();
-        lotHistoryFilter.setLot(lot);
-        List<LotHistoryDto> lotHistoryList = historyDao.findByFilter(lotHistoryFilter);
+        List<LotHistoryDto> lotHistoryList = auctionService.getLotHistory(lotId);
         for (LotHistoryDto historyDto : lotHistoryList) {
-            System.out.println( " - $" + historyDto.getPrice() + ", " + historyDto.getBuyer().getLogin() + ", " + historyDto.getChangeTime() );
+            System.out.println(
+                (historyDto.getId() == null ? "текущая" : historyDto.getId() ) +
+                ") $" + historyDto.getPrice() + ", " + historyDto.getBuyer().getLogin() +
+                ", " + historyDto.getChangeTime()
+            );
         }
-
 
 
 

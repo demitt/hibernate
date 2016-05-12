@@ -102,10 +102,13 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     public long create(ItemDto itemDto) {
-        return 0;
+        //TODO
+        throw new RuntimeException("ItemDaoImpl#create(): не реализовано.");
+        //return 0;
     }
 
     public void update(ItemDto itemDto) {
-
+        //TODO
+        throw new RuntimeException("ItemDaoImpl#update(): не реализовано.");
     }
 }

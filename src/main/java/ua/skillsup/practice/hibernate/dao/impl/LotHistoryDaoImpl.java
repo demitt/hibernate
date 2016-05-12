@@ -65,8 +65,10 @@ public class LotHistoryDaoImpl implements LotHistoryDao {
 		return lotHistoriesDto;
 	}
 
-	//Здесь должна быть та логика, которую мы засунули в AuctionDaoImpl#makeBid(), блок "Insert into LotHistory" ? О_о
+	@Transactional(readOnly = false)
 	public long create(LotHistoryDto lotHistoryDto) {
-		return 0;
+		LotHistory lotHistory = convert(lotHistoryDto);
+		this.sessionFactory.getCurrentSession().persist(lotHistory); //TODO: persist или save?
+		return lotHistory.getId();
 	}
 }

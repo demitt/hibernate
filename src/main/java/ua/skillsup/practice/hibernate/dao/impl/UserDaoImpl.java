@@ -56,10 +56,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     public long create(UserDto userDto) {
-        return 0;
+        throw new RuntimeException("UserDaoImpl#create(): не реализовано.");
+        //return 0;
     }
 
     public void update(UserDto userDto) {
-
+        throw new RuntimeException("UserDaoImpl#update(): не реализовано.");
     }
 }
