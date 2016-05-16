@@ -45,6 +45,8 @@
     <context:property-placeholder location="data.properties" file-encoding="windows-1251" />
     <bean id="data" class="ua.skillsup.practice.hibernate.model.Data">
         <property name="MIN_BID_STEP" value="${min.bid.step}" />
+        <property name="DURATION_MIN" value="${auction.duration.days.min}" />
+        <property name="DURATION_MAX" value="${auction.duration.days.max}" />
     </bean>
 
 

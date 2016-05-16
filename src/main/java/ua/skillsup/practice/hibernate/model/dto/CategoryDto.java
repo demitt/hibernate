@@ -5,6 +5,13 @@ public class CategoryDto {
     private String title;
     private String description;
 
+    public CategoryDto() {
+    }
+
+    public CategoryDto(String title) {
+        this.title = title;
+    }
+
     public Long getId() {
         return id;
     }
@@ -37,7 +44,6 @@ public class CategoryDto {
         CategoryDto that = (CategoryDto) o;
 
         return title.equals(that.title);
-
     }
 
     @Override

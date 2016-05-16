@@ -3,11 +3,7 @@ package ua.skillsup.practice.hibernate.model.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-/**
- * Created by oleksii on 10/10/15.
- */
 public class LotDto {
 
 	private Long id;
@@ -19,6 +15,23 @@ public class LotDto {
 	private UserDto buyer;
 	private BigDecimal currentPrice;
 	private LocalDate dateEnd;
+
+	public LotDto(ItemDto item, UserDto owner, BigDecimal price, int period) {
+		this.item = item;
+		this.owner = owner;
+		this.startPrice = price;
+		this.currentPrice = price;
+		this.datePlaced = LocalDate.now();
+		this.dateEnd = this.datePlaced.plusDays(period);
+	}
+
+	public LotDto() {
+
+	}
+
+	public LotDto(long id) {
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;

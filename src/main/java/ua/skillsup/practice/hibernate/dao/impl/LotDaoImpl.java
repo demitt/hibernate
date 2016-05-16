@@ -2,26 +2,25 @@ package ua.skillsup.practice.hibernate.dao.impl;
 
 import org.hibernate.Criteria;
 import org.hibernate.ReplicationMode;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.skillsup.practice.hibernate.dao.LotDao;
 import ua.skillsup.practice.hibernate.dao.entity.Lot;
 import ua.skillsup.practice.hibernate.model.dto.LotDto;
 import ua.skillsup.practice.hibernate.model.filter.LotFilter;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static ua.skillsup.practice.hibernate.converters.EntityDtoConverter.convert;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class LotDaoImpl implements LotDao {
 
 	@Autowired
@@ -69,11 +68,11 @@ public class LotDaoImpl implements LotDao {
 		}
 		if (filter.getOwner() != null) {
 			criteria.add(Restrictions.eq("owner", convert(filter.getOwner())));
-			//criteria.addOrder(Order.asc("owner")); //нужен компаратор User?
+			//criteria.addOrder(Order.asc("owner")); //для этого нужен компаратор User?
 		}
 		if (filter.getCurrentBuyer() != null) {
 			criteria.add(Restrictions.eq("buyer", convert(filter.getCurrentBuyer())));
-			//criteria.addOrder(Order.asc("buyer")); //нужен компаратор User?
+			//criteria.addOrder(Order.asc("buyer")); //для этого нужен компаратор User?
 		}
 		if (filter.getCurrentPriceFrom() != null) {
 			criteria.add(Restrictions.ge("currentPrice", filter.getCurrentPriceFrom()));
@@ -85,7 +84,7 @@ public class LotDaoImpl implements LotDao {
 		}
 		if (filter.getItem() != null) {
 			criteria.add(Restrictions.eq("item", convert(filter.getItem())));
-			//criteria.addOrder(Order.asc("item")); //нужен компаратор Item?
+			//criteria.addOrder(Order.asc("item")); //для этого нужен компаратор Item?
 		}
 
 		List<Lot> lots = criteria.list();
@@ -96,14 +95,14 @@ public class LotDaoImpl implements LotDao {
 		return lotsDto;
 	}
 
-	@Transactional(readOnly = false)
+	@Transactional(readOnly = false, propagation = Propagation.MANDATORY)
 	public long create(LotDto lotDto) {
 		Lot lot = convert(lotDto);
-		this.sessionFactory.getCurrentSession().save(lot);
+		this.sessionFactory.getCurrentSession().save(lot); //persist() ?
 		return lot.getId();
 	}
 
-	@Transactional(readOnly = false)
+	@Transactional(readOnly = false, propagation = Propagation.MANDATORY)
 	public void update(LotDto lotDto) {
 		Lot lot = convert(lotDto);
 		this.sessionFactory.getCurrentSession().replicate(lot, ReplicationMode.OVERWRITE);

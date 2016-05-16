@@ -12,6 +12,22 @@ public class ItemDto {
 	private Double weight;
 	private List<CategoryDto> categories;
 
+	public ItemDto() {
+	}
+
+	public ItemDto(String title, String description, Double width, Double height, Double weight, List<CategoryDto> categories) {
+		this.title = title;
+		this.description = description;
+		this.width = width;
+		this.height = height;
+		this.weight = weight;
+		this.categories = categories;
+	}
+
+	public ItemDto(Long id) {
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}

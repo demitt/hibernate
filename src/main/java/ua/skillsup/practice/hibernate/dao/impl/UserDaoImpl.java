@@ -3,6 +3,7 @@ package ua.skillsup.practice.hibernate.dao.impl;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.skillsup.practice.hibernate.dao.UserDao;
 import ua.skillsup.practice.hibernate.dao.entity.User;
@@ -14,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class UserDaoImpl implements UserDao {
 
     @Autowired
     SessionFactory sessionFactory;
 
-    @Transactional(readOnly = true)
     public List<UserDto> findAll() {
         List<User> users = sessionFactory.getCurrentSession().
             createQuery("from User").
@@ -31,7 +32,6 @@ public class UserDaoImpl implements UserDao {
         return userDto;
     }
 
-    @Transactional(readOnly = true)
     public UserDto findById(long id) {
         User user = (User) sessionFactory.getCurrentSession().
             createQuery("from User where id = :id").
@@ -43,7 +43,6 @@ public class UserDaoImpl implements UserDao {
         return convert(user);
     }
 
-    @Transactional(readOnly = true)
     public UserDto findByLogin(String login) {
         User user = (User) sessionFactory.getCurrentSession().
             createQuery("from User where login = :login").
@@ -55,11 +54,12 @@ public class UserDaoImpl implements UserDao {
         return convert(user);
     }
 
+    @Transactional(readOnly = false, propagation = Propagation.MANDATORY)
     public long create(UserDto userDto) {
         throw new RuntimeException("UserDaoImpl#create(): не реализовано.");
-        //return 0;
     }
 
+    @Transactional(readOnly = false, propagation = Propagation.MANDATORY)
     public void update(UserDto userDto) {
         throw new RuntimeException("UserDaoImpl#update(): не реализовано.");
     }

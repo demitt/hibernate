@@ -4,6 +4,7 @@ package ua.skillsup.practice.hibernate.dao.impl;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.skillsup.practice.hibernate.dao.CategoryDao;
 import ua.skillsup.practice.hibernate.dao.entity.Category;
@@ -15,7 +16,7 @@ import java.util.List;
 import static ua.skillsup.practice.hibernate.converters.EntityDtoConverter.convert;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class CategoryDaoImpl implements CategoryDao {
 
     @Autowired

@@ -13,10 +13,10 @@ public class Lot {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private Long id;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ITEM_ID", nullable = false)
 	private Item item;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="OWNER_ID", nullable = false)
 	private User owner;
 	@Column(name = "DATE_PLACED")
@@ -25,7 +25,7 @@ public class Lot {
 	private LocalDateTime lastUpdate;
 	@Column(name = "START_PRICE")
 	private BigDecimal startPrice;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BUYER_ID")
 	private User buyer;
 	@Column(name = "CURRENT_PRICE")

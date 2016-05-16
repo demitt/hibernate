@@ -9,9 +9,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Created by oleksii on 10/10/15.
- */
 public interface AuctionService {
 
 	/**
@@ -66,5 +63,10 @@ public interface AuctionService {
 	 * @return bid history in chronological order
 	 */
 	List<LotHistoryDto> getLotHistory(long lotId);
+
+	/** Added by DeMitt.
+	 *
+	 */
+	ItemDto createItem(String title, String description, List<String> categories, double width, double height, double weight);
 
 }

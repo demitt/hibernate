@@ -6,6 +6,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.skillsup.practice.hibernate.dao.LotHistoryDao;
 import ua.skillsup.practice.hibernate.dao.entity.LotHistory;
@@ -18,20 +19,18 @@ import java.util.List;
 import static ua.skillsup.practice.hibernate.converters.EntityDtoConverter.convert;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class LotHistoryDaoImpl implements LotHistoryDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	public List<LotHistoryDto> findAll() {
-		throw new RuntimeException("LotHistoryDaoImpl#findAll(): не реализовано!");
-		//return null;
+		throw new RuntimeException("LotHistoryDaoImpl#findAll(): не реализовано.");
 	}
 
 	public LotHistoryDto findById(long id) {
-		throw new RuntimeException("LotHistoryDaoImpl#findById(): не реализовано!");
-		//return null;
+		throw new RuntimeException("LotHistoryDaoImpl#findById(): не реализовано.");
 	}
 
 	public List<LotHistoryDto> findByFilter(LotHistoryFilter lotHistoryFilter) {
@@ -65,10 +64,10 @@ public class LotHistoryDaoImpl implements LotHistoryDao {
 		return lotHistoriesDto;
 	}
 
-	@Transactional(readOnly = false)
+	@Transactional(readOnly = false, propagation = Propagation.MANDATORY)
 	public long create(LotHistoryDto lotHistoryDto) {
 		LotHistory lotHistory = convert(lotHistoryDto);
-		this.sessionFactory.getCurrentSession().persist(lotHistory); //TODO: persist или save?
+		this.sessionFactory.getCurrentSession().persist(lotHistory); //save?
 		return lotHistory.getId();
 	}
 }

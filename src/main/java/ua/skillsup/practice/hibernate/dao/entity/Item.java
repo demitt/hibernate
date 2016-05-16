@@ -1,7 +1,5 @@
 package ua.skillsup.practice.hibernate.dao.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -23,18 +21,13 @@ public class Item {
 	private Double height;
 	@Column(name = "WEIGHT")
 	private Double weight;
-
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 		name = "ITEM_CATEGORY",
 		joinColumns = @JoinColumn(name = "ITEM_ID"),
 		inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID")
 	)
 	private List<Category> categories;
-
-	//Не требуется:
-	//@OneToMany(mappedBy = "item")
-	//private List<Lot> lots;
 
 	public Long getId() {
 		return id;

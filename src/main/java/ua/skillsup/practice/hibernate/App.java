@@ -6,17 +6,16 @@ import ua.skillsup.practice.hibernate.dao.ItemDao;
 import ua.skillsup.practice.hibernate.dao.LotDao;
 import ua.skillsup.practice.hibernate.dao.LotHistoryDao;
 import ua.skillsup.practice.hibernate.dao.UserDao;
-import ua.skillsup.practice.hibernate.dao.entity.LotHistory;
+import ua.skillsup.practice.hibernate.model.Data;
 import ua.skillsup.practice.hibernate.model.dto.CategoryDto;
+import ua.skillsup.practice.hibernate.model.dto.ItemDto;
 import ua.skillsup.practice.hibernate.model.dto.LotDto;
 import ua.skillsup.practice.hibernate.model.dto.LotHistoryDto;
 import ua.skillsup.practice.hibernate.model.dto.UserDto;
 import ua.skillsup.practice.hibernate.model.filter.LotFilter;
-import ua.skillsup.practice.hibernate.model.filter.LotHistoryFilter;
 import ua.skillsup.practice.hibernate.service.AuctionService;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -117,27 +116,54 @@ public class App {
 
         AuctionService auctionService = context.getBean(AuctionService.class);
 
+        //Создание товара:
+        String itemTitle = "Стол на трех ножках";
+        System.out.println("Создание товара \"" + itemTitle +"\"");
+        ItemDto createdItemDto = auctionService.createItem(
+            itemTitle, "Оригинальное решение для...", Arrays.asList("Table"), 900, 900, 16
+        );
+        if (createdItemDto.getId() == Data.ID_FOR_ERROR_DTO) {
+            return;
+        }
+        System.out.println("Товар создан:\n" + createdItemDto);
+        System.out.println();
 
-        long lotId = 1;
+        //Создание лота:
+        String owner = "Odin";
+        String priceString = "9.99";
+        int period = 25;
+        System.out.println(
+            "Пользователь " + owner + " создает лот \"" + itemTitle + "\", $" + priceString + ", дней " + period
+        );
+        LotDto createdLotDto = auctionService.createLot(owner, itemTitle, new BigDecimal(priceString), period);
+        long lotId = createdLotDto.getId();
+        if (lotId == Data.ID_FOR_ERROR_DTO) {
+            return;
+        }
+        System.out.println("Id созданного лота: " + lotId);
+        System.out.println();
+
+        //Ставки на лот:
         LotDto lotDto = lotDao.findById(lotId);
-        System.out.println("*** " +
-            "Делаем ставки на лот: " +
-            "lotId=" + lotDto.getId() + ", '" + lotDto.getItem().getTitle() + "', $" + lotDto.getCurrentPrice() +
+        System.out.println(
+            "Делаем ставки на этот лот: " +
+            "lotId=" + lotDto.getId() + ", \"" + lotDto.getItem().getTitle() + "\", $" + lotDto.getCurrentPrice() +
             ", владелец " + lotDto.getOwner().getLogin()
         );
-        List<String> logins = Arrays.asList("Loki", "Loki", "Loki", "Odin", "Лютый_Бандеровец", "Loki");
-        List<String> prices = Arrays.asList("10.08", "10.09", "11.25", "11.70", "12.01", "15");
-        String login;
-        String priceString;
+        List<String> logins = Arrays.asList("Loki", "Loki", "Loki", "Odin", "Spiderman", "Loki", "Loki");
+        List<String> prices = Arrays.asList("10.08", "10.09", "11.25", "11.70", "12.01", "-15", "13");
+        String currentLogin;
+        String currentPriceString;
         for (int i = 0; i < logins.size(); i++) {
-            login = logins.get(i);
-            priceString = prices.get(i);
-            System.out.println(login + " делает ставку $" + priceString);
-            auctionService.makeBid(login, lotId, new BigDecimal(priceString));
+            currentLogin = logins.get(i);
+            currentPriceString = prices.get(i);
+            System.out.println(currentLogin + " делает ставку $" + currentPriceString);
+            auctionService.makeBid(currentLogin, lotId, new BigDecimal(currentPriceString));
         }
 
-        System.out.println("Итого текущая цена лота составляет $" + lotDao.findById(lotId).getCurrentPrice());
-        System.out.println("А история ставок выглядит следующим образом:");
+        //Результаты ставок:
+        System.out.println("Текущая цена лота составляет $" + lotDao.findById(lotId).getCurrentPrice());
+        System.out.println("История ставок выглядит следующим образом:");
         List<LotHistoryDto> lotHistoryList = auctionService.getLotHistory(lotId);
         for (LotHistoryDto historyDto : lotHistoryList) {
             System.out.println(
@@ -146,7 +172,6 @@ public class App {
                 ", " + historyDto.getChangeTime()
             );
         }
-
 
 
 

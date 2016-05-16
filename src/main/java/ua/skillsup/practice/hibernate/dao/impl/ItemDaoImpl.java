@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.skillsup.practice.hibernate.dao.ItemDao;
 import ua.skillsup.practice.hibernate.dao.entity.Category;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class ItemDaoImpl implements ItemDao {
 
     @Autowired
@@ -79,6 +80,7 @@ public class ItemDaoImpl implements ItemDao {
         if (filter.getWeightTo() != null) {
             criteria.add(Restrictions.le("weight", filter.getWeightTo()));
         }
+
         List<Item> items = criteria.list();
         List<ItemDto> itemsDto = new ArrayList<>(items.size());
         for (Item item : items) {
@@ -101,14 +103,15 @@ public class ItemDaoImpl implements ItemDao {
         return itemsDto;
     }
 
+    @Transactional(readOnly = false, propagation = Propagation.MANDATORY)
     public long create(ItemDto itemDto) {
-        //TODO
-        throw new RuntimeException("ItemDaoImpl#create(): не реализовано.");
-        //return 0;
+        Item item = convert(itemDto);
+        this.sessionFactory.getCurrentSession().persist(item);
+        return item.getId();
     }
 
+    //TODO транзакция
     public void update(ItemDto itemDto) {
-        //TODO
         throw new RuntimeException("ItemDaoImpl#update(): не реализовано.");
     }
 }

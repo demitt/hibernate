@@ -21,14 +21,10 @@ public class User {
     private String deliveryAddress;
     @Column(name = "CONTACT_PHONE", nullable = false, unique = true)
     private String contactPhone;
-
-
-    @OneToMany(mappedBy = "owner")
-    Set<Lot> lots;
-    @OneToMany(mappedBy = "buyer")
-    Set<Lot> buyLots;
-
-
+    //@OneToMany(mappedBy = "owner")
+    //Set<Lot> lots;
+    //@OneToMany(mappedBy = "buyer")
+    //Set<Lot> buyLots;
 
     public Long getId() {
         return id;
@@ -90,16 +86,4 @@ public class User {
     public int hashCode() {
         return Objects.hash(id);
     }
-
-    /*@Override
-    public String toString() {
-        return "User{" +
-            "id=" + id +
-            ", login='" + login + '\'' +
-            ", name='" + name + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", deliveryAddress='" + deliveryAddress + '\'' +
-            ", contactPhone='" + contactPhone + '\'' +
-            '}';
-    }*/
 }
