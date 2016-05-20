@@ -9,7 +9,7 @@ public interface LotDao {
 	List<LotDto> findAll();
 	LotDto findById(long id);
 	List<LotDto> findByFilter(LotFilter filter);
+	List<LotDto> findByOwnerId(long id);
 	long create(LotDto lotDto);
 	void update(LotDto lotDto);
-
 }

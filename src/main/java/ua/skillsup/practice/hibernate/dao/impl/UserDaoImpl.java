@@ -54,9 +54,11 @@ public class UserDaoImpl implements UserDao {
         return convert(user);
     }
 
-    @Transactional(readOnly = false, propagation = Propagation.MANDATORY)
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public long create(UserDto userDto) {
-        throw new RuntimeException("UserDaoImpl#create(): не реализовано.");
+        User user = convert(userDto);
+        this.sessionFactory.getCurrentSession().persist(user);
+        return user.getId();
     }
 
     @Transactional(readOnly = false, propagation = Propagation.MANDATORY)

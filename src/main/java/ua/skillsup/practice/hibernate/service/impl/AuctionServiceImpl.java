@@ -100,7 +100,7 @@ public class AuctionServiceImpl implements AuctionService {
     }
 
     private LotDto createErrorLot() {
-        return new LotDto(-1);
+        return new LotDto(Data.ID_FOR_ERROR_DTO);
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -168,8 +168,8 @@ public class AuctionServiceImpl implements AuctionService {
         LotHistoryFilter lotHistoryFilter = new LotHistoryFilter();
         lotHistoryFilter.setLot(lotDto);
         List<LotHistoryDto> lotHistoryDto = historyDao.findByFilter(lotHistoryFilter);
-        if (lotDto.getBuyer() != null) {
-            LotHistoryDto currentLotHistoryElement = new LotHistoryDto(lotDto); //последняя ставка
+        if (lotDto.getBuyer() != null) { //была хотя бы одна ставка
+            LotHistoryDto currentLotHistoryElement = new LotHistoryDto(lotDto); //текущая ставка
             lotHistoryDto.add(currentLotHistoryElement);
         }
         return lotHistoryDto;
@@ -190,7 +190,7 @@ public class AuctionServiceImpl implements AuctionService {
         //Поиск категорий:
         List<CategoryDto> allCategories = this.categoryDao.findAll(); //все имеющиеся в БД категории
         List<CategoryDto> categoriesDto = new ArrayList<>(categoryTitles.size()); //ДТОшки категорий item-а
-        List<String> categoriesNotExist = new ArrayList<>(); //сюда сложим заголовки не имеющихся в БД категорий
+        List<String> categoriesNotExist = new ArrayList<>(); //сюда сложим заголовки НЕ имеющихся в БД категорий
         for (String categoryTitle : categoryTitles) {
             CategoryDto categoryDto = new CategoryDto(categoryTitle);
             int indexOfCategory = allCategories.indexOf(categoryDto);

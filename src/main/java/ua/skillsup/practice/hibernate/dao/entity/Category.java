@@ -15,7 +15,6 @@ public class Category {
 	private String title;
 	@Column(name = "DESCRIPTION")
 	private String description;
-
 	//Используется только для поиска всех items данной категории:
 	@ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
 	private List<Item> items;

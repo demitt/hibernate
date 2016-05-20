@@ -9,6 +9,16 @@ public class UserDto {
 	private String deliveryAddress;
 	private String contactPhone;
 
+	public UserDto() {   }
+
+	public UserDto(String login, String name, String lastName, String deliveryAddress, String contactPhone) {
+		this.login = login;
+		this.name = name;
+		this.lastName = lastName;
+		this.deliveryAddress = deliveryAddress;
+		this.contactPhone = contactPhone;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -84,13 +94,13 @@ public class UserDto {
 
 	@Override
 	public String toString() {
-		return "UserDto {\n" +
-				"\tid=" + id +
+		return "UserDto{" +
+				"id=" + id +
 				", login='" + login + '\'' +
 				", name='" + name + '\'' +
 				", lastName='" + lastName + '\'' +
 				", deliveryAddress='" + deliveryAddress + '\'' +
 				", contactPhone='" + contactPhone + '\'' +
-				"\n}";
+				"}";
 	}
 }

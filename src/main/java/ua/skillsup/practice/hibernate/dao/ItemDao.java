@@ -6,9 +6,6 @@ import ua.skillsup.practice.hibernate.model.filter.ItemFilter;
 
 import java.util.List;
 
-/**
- * Created by oleksii on 10/10/15.
- */
 public interface ItemDao {
 	List<ItemDto> findAll();
 	ItemDto findById(long id);
@@ -17,5 +14,4 @@ public interface ItemDao {
 	List<ItemDto> findByCategory(CategoryDto categoryDto);
 	long create(ItemDto itemDto);
 	void update(ItemDto itemDto);
-
 }

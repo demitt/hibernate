@@ -31,7 +31,9 @@ public class App {
         System.out.println("Список всех items:");
         System.out.println( itemDao.findAll() );
         System.out.println();
+        */
 
+        /*
         long itemId = 1L;
         System.out.println("Поиск item с id=" + itemId +":");
         System.out.println( itemDao.findById(itemId) );
@@ -77,16 +79,15 @@ public class App {
 
         LotDao lotDao = context.getBean(LotDao.class);
 
-        //System.out.println("Список всех лотов:");
-        //System.out.println(lotDao.findAll());
+        /*
+        System.out.println("Список всех лотов:");
+        System.out.println(lotDao.findAll());
+        */
 
         System.out.println("Поиск всех лотов пользователя:");
         UserDto user = userDao.findById(1);
-        //System.out.println("Юзер:");
-        //System.out.println(user);
         LotFilter filter = new LotFilter();
         filter.setOwner(user);
-        //System.out.println("Лоты:");
         System.out.println( lotDao.findByFilter(filter) );
         System.out.println();
 
@@ -128,8 +129,17 @@ public class App {
         System.out.println("Товар создан:\n" + createdItemDto);
         System.out.println();
 
+        //Создание пользователя:
+        String login = "T-100";
+        System.out.println("Создание пользователя \"" + login +"\"");
+        UserDto newUser = new UserDto(login, "Arni", "Terminator", "USA, California", "003 239 585 66");
+        long userId = userDao.create(newUser);
+        newUser.setId(userId);
+        System.out.println("Пользователь создан:\n" + newUser);
+        System.out.println();
+
         //Создание лота:
-        String owner = "Odin";
+        String owner = newUser.getLogin();
         String priceString = "9.99";
         int period = 25;
         System.out.println(
@@ -143,14 +153,14 @@ public class App {
         System.out.println("Id созданного лота: " + lotId);
         System.out.println();
 
-        //Ставки на лот:
+        //Делаем ставки на лот:
         LotDto lotDto = lotDao.findById(lotId);
         System.out.println(
             "Делаем ставки на этот лот: " +
             "lotId=" + lotDto.getId() + ", \"" + lotDto.getItem().getTitle() + "\", $" + lotDto.getCurrentPrice() +
             ", владелец " + lotDto.getOwner().getLogin()
         );
-        List<String> logins = Arrays.asList("Loki", "Loki", "Loki", "Odin", "Spiderman", "Loki", "Loki");
+        List<String> logins = Arrays.asList("Loki", "Loki", "Loki", newUser.getLogin(), "Spiderman", "Loki", "Loki");
         List<String> prices = Arrays.asList("10.08", "10.09", "11.25", "11.70", "12.01", "-15", "13");
         String currentLogin;
         String currentPriceString;
@@ -172,7 +182,6 @@ public class App {
                 ", " + historyDto.getChangeTime()
             );
         }
-
 
 
         context.stop();

@@ -1,6 +1,7 @@
 package ua.skillsup.practice.hibernate.dao.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -21,10 +22,10 @@ public class User {
     private String deliveryAddress;
     @Column(name = "CONTACT_PHONE", nullable = false, unique = true)
     private String contactPhone;
-    //@OneToMany(mappedBy = "owner")
-    //Set<Lot> lots;
-    //@OneToMany(mappedBy = "buyer")
-    //Set<Lot> buyLots;
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    List<Lot> lots;
+    //@OneToMany(mappedBy = "buyer", fetch = FetchType.LAZY)
+    //List<Lot> buyLots;
 
     public Long getId() {
         return id;

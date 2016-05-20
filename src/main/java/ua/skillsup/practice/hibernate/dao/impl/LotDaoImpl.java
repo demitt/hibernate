@@ -95,6 +95,19 @@ public class LotDaoImpl implements LotDao {
 		return lotsDto;
 	}
 
+	@Override
+	public List<LotDto> findByOwnerId(long id) {
+		List<Lot> lots = this.sessionFactory.getCurrentSession().
+			createQuery("select lots from User where id = :id").
+			setParameter("id", id).
+			list();
+		List<LotDto> lotsDto = new ArrayList<>(lots.size());
+		for (Lot lot : lots) {
+			lotsDto.add(convert(lot));
+		}
+		return lotsDto;
+	}
+
 	@Transactional(readOnly = false, propagation = Propagation.MANDATORY)
 	public long create(LotDto lotDto) {
 		Lot lot = convert(lotDto);

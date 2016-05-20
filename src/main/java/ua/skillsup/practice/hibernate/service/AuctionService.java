@@ -64,8 +64,15 @@ public interface AuctionService {
 	 */
 	List<LotHistoryDto> getLotHistory(long lotId);
 
-	/** Added by DeMitt.
-	 *
+	/**
+	 * Создание товара
+	 * @param title имя товара
+	 * @param description описание товара
+	 * @param categories список наименований категорий (ноль или более наименований)
+	 * @param width ширина товара, мм
+	 * @param height высота товара, мм
+	 * @param weight вес товара, кг
+	 * @return созданный товар
 	 */
 	ItemDto createItem(String title, String description, List<String> categories, double width, double height, double weight);
 

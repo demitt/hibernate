@@ -7,7 +7,7 @@ INSERT INTO CATEGORY (TITLE, DESCRIPTION) VALUES
 INSERT INTO ITEM (TITLE, DESCRIPTION, WEIGHT) VALUES
   ('Sennheiser OCX 686i Sports', 'Good sport headphones with garniture for that who know the price of good sound', 0.125);
 INSERT INTO ITEM (TITLE, DESCRIPTION, WEIGHT, WIDtH, HEIGHT) VALUES
-  ('Dinning table', 'Простой, но комфортабельный обеденный стол для семьи из 6-8 человек', 5.6, 1.46, 0.75);
+  ('Dinning table', 'Простой, но комфортабельный обеденный стол для семьи из 6-8 человек', 5600, 1460, 0.75);
 INSERT INTO ITEM (TITLE, DESCRIPTION) VALUES
   ('Gladiator, digital copy', 'Digital copy of Riddley Scott movie');
 
